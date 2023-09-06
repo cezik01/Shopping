@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Shopping.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
+    </p>
+    <table class="table table-striped table-bordered" id="myTable ">
+        <thead>
+            <tr>
+                <th>
+                   Photo
+                </th>
+                <th>
+                    Title
+                </th>
+                
+                <th>
+                    Stock
+                </th>
+                <th>
+                    Category
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.Image == null)
+                        {
+                            <img src="~/images/image/360_f_470299797_ud0eovmmsubhccnjcdv2t8b2g1gvqygs.jpg" />
+                            
+                        }else{<img src="@item.Image" width="100" height="80"/>
+
+                        }
+
+
+                    
+                    
+                    </td>
+                    
+                    
+                    <td>
+                        @if (item.isStock)
+                        {
+                            <label class="btn btn-success btn-sm"><i class="bi bi-x-lg"></i>Evet </label>
+                        }
+                        else
+                        {
+                            <label class="btn btn-danger btn-sm"><i class="bi bi-x-lg"></i>Hayır</label>
+                        } 
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success" >Edit</a> | |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" >Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        let table = new DataTable('#myTable');
+    </script>
+}
